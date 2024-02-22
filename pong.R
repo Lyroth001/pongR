@@ -13,8 +13,9 @@ count = 0
 running = TRUE
 game$init()
 myScr = game$display$set_mode(size)
-paddles = tibble(id = c(1,2),x = c(1,1000), y = c(30,30))
-ball = tibble(x=500,y=15)
+paddles = tibble(id = c(1,2), x = c(1,1000), xend = c(1,1000), y = 10, yend = 20)
+ball = tibble(x=500,y=15,xDirection = 10, yDirection = 1)
+score = tibble(id = c(1,2), score = c(0,0))
 game$display$set_caption("Click in to control, mouse and WASD")
 
 readEvents <<- function(){
@@ -23,12 +24,14 @@ readEvents <<- function(){
       print("here")
       if(event$key == game$K_w){
         #mov LHS up
-        paddles <<- mutate(paddles, y=ifelse(id == 1, y = y+1, y))
+        paddles <<- mutate(paddles, y=ifelse(id == 1, y+1, y))
+        paddles <<- mutate(paddles, yend=ifelse(id == 1, yend+1, yend))
         return(T)
       }
       if(event$key == game$K_s){
         #mov LHS down
-        paddles <<- mutate(paddles, y=ifelse(id == 1, y = y-1, y))
+        paddles <<- mutate(paddles, y=ifelse(id == 1, y-1, y))
+        paddles <<- mutate(paddles, yend=ifelse(id == 1, yend-1, yend))
         return(T)
       }
       if(event$key == game$K_e){
@@ -44,7 +47,21 @@ readEvents <<- function(){
   return(T)
 }
 
-
+moveBall = function (){
+    ball <<- mutate(ball, x = x + ball$xDirection, y = y + ball$yDirection)
+    if(ball$x > 1000){
+        ball <<- mutate(ball, x = 500, y = 15, xDirection = -10, yDirection = 0)
+    }
+    if(ball$x < 0){
+        ball <<- mutate(ball, x = 500, y = 15, xDirection = 10, yDirection = 0)
+    }
+    if(ball$y > 30){
+        ball <<- mutate(ball, yDirection = -1)
+    }
+    if(ball$y < 0){
+        ball <<- mutate(ball, yDirection = 1)
+    }
+}
 
 # ggplot(paddles, aes(x = x, y=y)) + geom_boxplot() + geom_point(ball, aes(x=x,y=y),color = "white")
 # what i need is an open pyGame screen to manage inputs,and use a ggplot for output
@@ -54,15 +71,15 @@ while(running){
   # brutilisation of ggplot to display the game
   # current implementation wont work live, youll need to look at the graphs afterwards lol
   # its basically a powerpoint
-  ggplot(data = paddles, aes(x = factor(id), y = y)) +
-    geom_boxplot()+
-    geom_point(aes(x = ball$x, y = ball$y), color = "white") +
-    expand_limits(x = c(-3,3),y = c(-20,20)) #sets 'screen' size
-  + labs(title = "Pong", x = "Player")
+  screen = ggplot() + # moved data and aesthetics to respective geoms (preference, not necessary)
+    geom_segment(data = paddles, aes(x = x, xend = xend, y = y, yend = yend), linewidth = 3) +
+    geom_point(data = ball, aes(x = x, y = y), color = "white") +
+    coord_cartesian(ylim = c(0, 30)) + # scale y axis
+    theme_dark()+ #labs, score should be shown as subtitle
+    labs(title = "Pong", subtitle = paste("Player 1: ", score$score[1], "Player 2: ", score$score[2]))
   running = readEvents()
+  moveBall()
+  print(screen)
 }
 paddles
 
-
-#boxplot using ggplot with paddles as x and y and one point for the ball
-#ar(aes(x = x, y = y), stat = "identity")
