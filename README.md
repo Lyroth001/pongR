@@ -10,11 +10,10 @@ Graphs load **when the program finishes executing**. This means it effectivly ge
 I am aware this is not ideal
 
 ## Features to add
-Add movement of R Paddle<br>
-Add movement of Ball<br>
-Add collision<br>
-Add scoring<br>
-Add endstate<br>
+Add movement of R Paddle
+Add endstate
+=======
+
 
 ## Features might add
 Support for more pygame focused mode - actually playable<br>
