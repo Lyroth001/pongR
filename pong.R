@@ -16,23 +16,34 @@ myScr = game$display$set_mode(size)
 paddles = tibble(id = c(1,2), x = c(1,1000), xend = c(1,1000), y = 10, yend = 20)
 ball = tibble(x=500,y=15,xDirection = sample(c(-10,10),1), yDirection = sample(c(-1,0,1),1))
 score = tibble(id = c(1,2), score = c(0,0))
-game$display$set_caption("Click in to control, mouse and WASD")
+game$display$set_caption("Click in to control, WS and Up/Down to move, E to quit")
 
 readEvents <<- function(){
   # Gets events from pygame, uses that to move paddles/quit
   for(event in game$event$get()){
     if(event$type == game$KEYDOWN){
-      print("here")
-      if(event$key == game$K_w){
+      if(event$key == game$K_w & paddles$yend[1] < 31){
         #mov LHS up
         paddles <<- mutate(paddles, y=ifelse(id == 1, y+1, y))
         paddles <<- mutate(paddles, yend=ifelse(id == 1, yend+1, yend))
         return(T)
       }
-      if(event$key == game$K_s){
+      if(event$key == game$K_s & paddles$y[1] > -1){
         #mov LHS down
         paddles <<- mutate(paddles, y=ifelse(id == 1, y-1, y))
         paddles <<- mutate(paddles, yend=ifelse(id == 1, yend-1, yend))
+        return(T)
+      }
+      if(event$key == game$K_UP & paddles$yend[2] < 31){
+        #mov RHS up
+        paddles <<- mutate(paddles, y=ifelse(id == 2, y+1, y))
+        paddles <<- mutate(paddles, yend=ifelse(id == 2, yend+1, yend))
+        return(T)
+      }
+      if(event$key == game$K_DOWN & paddles$y[2] > -1){
+        #mov RHS down
+        paddles <<- mutate(paddles, y=ifelse(id == 2, y-1, y))
+        paddles <<- mutate(paddles, yend=ifelse(id == 2, yend-1, yend))
         return(T)
       }
       if(event$key == game$K_e){
