@@ -5,7 +5,7 @@ Implementation of a simple pong game using ggplot and pygame<br>
 ## Run Instructions
 
 This may work in RStudio, it definetly wont work in posit cloud, as it requires creating a window<br>
-This will work in Dataspell. Use that one. Its free for students, or using the early access one<br>
+This will work in Dataspell. Use that one. Its free for students, or using the early access one. [Jetbrains educational licenses](https://www.jetbrains.com/community/education/#students)<br>
 Graphs load **when the program finishes executing**. This means it effectivly generates a powerpoint of a game of pong to watch back<br>
 I am aware this is not ideal
 
