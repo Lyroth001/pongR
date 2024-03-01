@@ -18,7 +18,7 @@ ball = tibble(x=500,y=15,xDirection = sample(c(-10,10),1), yDirection = sample(c
 score = tibble(id = c(1,2), score = c(0,0))
 game$display$set_caption("Click in to control, WS and Up/Down to move, E to quit")
 
-readEvents <<- function(){
+readEvents = function(){
   # Gets events from pygame, uses that to move paddles/quit
   for(event in game$event$get()){
     if(event$type == game$KEYDOWN){
@@ -59,7 +59,7 @@ readEvents <<- function(){
   }
   return(T)
 }
-
+# handles ball 'physics' and scoring
 moveBall = function (){
     ball <<- mutate(ball, x = x + ball$xDirection, y = y + ball$yDirection)
     if(ball$x > 1000){
