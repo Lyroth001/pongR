@@ -14,7 +14,7 @@ running = TRUE
 game$init()
 myScr = game$display$set_mode(size)
 paddles = tibble(id = c(1,2), x = c(1,1000), xend = c(1,1000), y = 10, yend = 20)
-ball = tibble(x=500,y=15,xDirection = -10, yDirection = 0)
+ball = tibble(x=500,y=15,xDirection = sample(c(-10,10),1), yDirection = sample(c(-1,0,1),1))
 score = tibble(id = c(1,2), score = c(0,0))
 game$display$set_caption("Click in to control, mouse and WASD")
 
