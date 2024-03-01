@@ -10,12 +10,7 @@ Graphs load **when the program finishes executing**. This means it effecivly gen
 I am aware this is not ideal
 
 ## Features to add
-Fix movement of L Paddle
 Add movement of R Paddle
-Add movement of Ball
-Add collision
-Add scoring
-Reset ball
 Add endstate
 
 ## Features might add
