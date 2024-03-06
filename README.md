@@ -14,9 +14,6 @@ I am aware this is not ideal
 Add movement of R Paddle<br>
 Add endstate<br>
 
-=======
-
-
 ## Features might add
 Support for more pygame focused mode - actually playable<br>
   Maybe run in pygame as well? Might be actually useable lmfao
