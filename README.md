@@ -10,8 +10,10 @@ Graphs load **when the program finishes executing**. This means it effectivly ge
 I am aware this is not ideal
 
 ## Features to add
-Add movement of R Paddle
-Add endstate
+
+Add movement of R Paddle<br>
+Add endstate<br>
+
 =======
 
 
