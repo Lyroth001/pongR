@@ -89,7 +89,7 @@ while(running){
   # brutilisation of ggplot to display the game
   # current implementation wont work live, youll need to look at the graphs afterwards lol
   # its basically a powerpoint
-  screen = ggplot() + # moved data and aesthetics to respective geoms (preference, not necessary)
+  screen = ggplot() +
     geom_segment(data = paddles, aes(x = x, xend = xend, y = y, yend = yend), linewidth = 3) +
     geom_point(data = ball, aes(x = x, y = y), color = "white") +
     coord_cartesian(ylim = c(0, 30)) + # scale y axis
@@ -101,3 +101,4 @@ while(running){
 }
 
 
+  
