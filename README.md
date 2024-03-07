@@ -11,7 +11,7 @@ I am aware this is not ideal
 
 ## Features to add
 
-Add movement of R Paddle<br>
+keyholding instead of keypressing<br>
 Add endstate<br>
 
 ## Features might add
